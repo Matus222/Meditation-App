@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Meditation_App_V2</string>
+    <string name="ringtone">Ringtone</string>
+    <string name="notifications">Notifications</string>
+    <string name="timer">Timer</string>
+    <string name="main">Main</string>
 </resources>
