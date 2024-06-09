@@ -11,11 +11,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,11 +31,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.meditation_app_v2.MainMenuButton
 import com.example.meditation_app_v2.R
 import com.example.meditation_app_v2.app_ui.TimerViewModel
+import com.example.meditation_app_v2.app_ui.AppScreens
 import com.example.meditation_app_v2.ui.theme.Meditation_App_V2Theme
-
-enum class AppScreens() {
-    Main()
-}
 
 @Composable
 fun MainMenu(
@@ -66,17 +62,26 @@ fun MainMenu(
         verticalAlignment = Alignment.Bottom
     ) {
         MainMenuButton(
-            onClick = { navController.navigate("Timer") },
+            onClick = { navController.navigate(AppScreens.Timer.name) },
             buttonWidth = buttonWidth,
             buttonHeight = buttonHeight,
             imageVector = Icons.Filled.AddCircle
         )
-        Spacer(modifier = Modifier.width(16.dp))
+        Spacer(modifier = Modifier.width(20.dp))
+
         MainMenuButton(
-            onClick = { /*TODO*/ },
+            onClick = { navController.navigate(AppScreens.Ringtone.name) },
             buttonWidth = buttonWidth,
             buttonHeight = buttonHeight,
             imageVector = Icons.Filled.Notifications
+        )
+        Spacer(modifier = Modifier.width(20.dp))
+
+        MainMenuButton(
+            onClick = { navController.navigate(AppScreens.TimerDuration.name) },
+            buttonWidth = buttonWidth,
+            buttonHeight = buttonHeight,
+            imageVector = Icons.Filled.Settings
         )
     }
 }
@@ -92,15 +97,22 @@ fun MeditationApp(
     NavHost(
         navController = navController,
         startDestination = "Main",
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
+        modifier = Modifier.fillMaxSize()
     ) {
-        composable(route = "Main") {
+        composable(route = AppScreens.Main.name) {
             MainMenu(navController = navController)
         }
-        composable(route = "Timer") {
-            TimerMenu(timerViewmodel = timerViewModel, context = context)
+
+        composable(route = AppScreens.Timer.name) {
+            TimerMenu(timerViewModel = timerViewModel, context = context)
+        }
+
+        composable(route = AppScreens.Ringtone.name) {
+            RingtoneMenu(timerViewModel = timerViewModel, navController = navController, context = context)
+        }
+
+        composable(route = AppScreens.TimerDuration.name) {
+            TimerDurationMenu(timerViewModel = timerViewModel, navController = navController)
         }
     }
 }

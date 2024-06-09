@@ -1,40 +1,30 @@
 package com.example.meditation_app_v2
 
-import android.graphics.ColorSpace
-import android.provider.CalendarContract.Colors
-import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.meditation_app_v2.menus.MeditationApp
+import androidx.compose.ui.unit.sp
 
 @Composable
-fun MainMenuButton(
+fun TimerMenuButton(
     onClick: () -> Unit,
-    buttonWidth: Dp,
-    buttonHeight: Dp,
     color: Color = Color(149, 111, 237),
-    imageVector: ImageVector
-    ) {
+    text: String
+) {
     ElevatedButton(
         onClick = onClick,
         shape = RoundedCornerShape(10.dp),
@@ -46,16 +36,17 @@ fun MainMenuButton(
             containerColor = color,
             contentColor = Color.Black
         ),
-        modifier = Modifier.size(buttonWidth, buttonHeight)
+        modifier = Modifier.fillMaxWidth(1f).padding(10.dp)
     ) {
-        Icon(imageVector = imageVector,
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(1F))
+        Text(text = text)
     }
 }
 
 @Composable
 @Preview(showBackground = true)
-fun MainMenuButtonPreview() {
-    MainMenuButton({}, 50.dp, 50.dp, imageVector = Icons.Filled.Person)
+private fun TimerMenuButtonPreview() {
+    TimerMenuButton(
+        onClick = { /*TODO*/ },
+        text = "SOMe"
+    )
 }
