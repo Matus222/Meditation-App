@@ -29,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.meditation_app_v2.R
 import com.example.meditation_app_v2.RingtoneMenuButton
 import com.example.meditation_app_v2.app_ui.TimerViewModel
@@ -146,5 +147,6 @@ private fun PreviewButton(
 @Preview(showBackground = true)
 private fun RingtoneMenuPreview() {
     val context = LocalContext.current
-    //RingtoneMenu(TimerViewModel(), context)
+    val navControler = rememberNavController()
+    RingtoneMenu(TimerViewModel(), navControler, context)
 }

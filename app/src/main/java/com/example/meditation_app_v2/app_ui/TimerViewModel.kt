@@ -11,6 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.meditation_app_v2.R
+import com.example.meditation_app_v2.menus.TimerAnimation
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,8 +26,9 @@ class TimerViewModel : ViewModel() {
     val uiState: StateFlow<TimerUiState> = _uiState.asStateFlow()
 
     private var timerJob: Job? = null
-    private var currentSeconds = _uiState.value.timerSeconds
+    private var currentSeconds: Long = _uiState.value.timerSeconds
     private var savedSeconds = currentSeconds
+
     private var currentRingtone: Int = R.raw.ringtone3
     private lateinit var loadedRingtone: MediaPlayer
 
@@ -34,7 +36,7 @@ class TimerViewModel : ViewModel() {
         timerJob?.cancel()
         timerJob = viewModelScope.launch {
             while (true) {
-                _uiState.value = TimerUiState(timerMilliseconds = 1000 * currentSeconds)
+                _uiState.value = TimerUiState(timerMilliseconds = 1000 * currentSeconds, timerSeconds = savedSeconds)
 
                 if (currentSeconds <= 0) {
                     loadedRingtone = playSound(context)
@@ -60,7 +62,7 @@ class TimerViewModel : ViewModel() {
         timerJob?.cancel()
 
         currentSeconds = savedSeconds
-        _uiState.value = TimerUiState(timerMilliseconds = 1000 * currentSeconds)
+        _uiState.value = TimerUiState(timerMilliseconds = 1000 * currentSeconds, timerSeconds = savedSeconds)
 
         if (this::loadedRingtone.isInitialized) {
             loadedRingtone.stop()
@@ -72,7 +74,8 @@ class TimerViewModel : ViewModel() {
     }
 
     fun changeTimerDuration(seconds: Long) {
-        _uiState.value = TimerUiState(timerSeconds = seconds)
+        _uiState.value = TimerUiState(timerMilliseconds = 1000 * seconds, timerSeconds = seconds)
+
         savedSeconds = seconds
         currentSeconds = savedSeconds
     }
