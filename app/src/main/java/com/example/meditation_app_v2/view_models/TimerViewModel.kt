@@ -1,17 +1,12 @@
-package com.example.meditation_app_v2.app_ui
+package com.example.meditation_app_v2.view_models
 
 import android.content.Context
 import android.media.MediaPlayer
-import android.media.Ringtone
-import android.media.RingtoneManager
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.meditation_app_v2.R
-import com.example.meditation_app_v2.menus.TimerAnimation
+import com.example.meditation_app_v2.app_ui.TimerUiState
+import com.example.meditation_app_v2.data.TimerDurationItemRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,14 +14,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
-import kotlin.concurrent.timer
 
 /**
 Táto trieda reprezentuje viewModel tejto aplikácie.
 
 @author Matúš Kendera
  */
-class TimerViewModel : ViewModel() {
+class TimerViewModel() : ViewModel() {
     private val _uiState = MutableStateFlow(TimerUiState())
     val uiState: StateFlow<TimerUiState> = _uiState.asStateFlow()
 

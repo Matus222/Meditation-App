@@ -1,7 +1,6 @@
-package com.example.meditation_app_v2.menus
+package com.example.meditation_app_v2.screens
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.widget.TextClock
 import androidx.compose.foundation.Image
@@ -24,7 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFontFamilyResolver
@@ -37,15 +35,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.meditation_app_v2.MainMenuButton
+import com.example.meditation_app_v2.AppViewModelProvider
+import com.example.meditation_app_v2.buttons.MainMenuButton
 import com.example.meditation_app_v2.R
-import com.example.meditation_app_v2.app_ui.TimerViewModel
+import com.example.meditation_app_v2.view_models.TimerViewModel
 import com.example.meditation_app_v2.app_ui.AppScreens
+import com.example.meditation_app_v2.navigation.NavGraph
 import com.example.meditation_app_v2.ui.theme.Meditation_App_V2Theme
+import com.example.meditation_app_v2.view_models.TimerDurationEntryViewModel
 
 /**
 Tento súbor reprezentuje hlavné menu tejto aplikácia.
@@ -53,8 +54,14 @@ Tento súbor reprezentuje hlavné menu tejto aplikácia.
 @author Matúš Kendera
  */
 
+/**
+Táto funkcia vytvorí komponenty tohto menu.
+
+@param navController je odkaz na navController ktorý táto aplikácia používa
+@param modifier je Modifier, ktorý táto funkcia používa
+ */
 @Composable
-fun MainMenu(
+fun MainScreen(
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
@@ -116,6 +123,8 @@ fun MainMenu(
 
 /**
 Táto funkcia vytvára hodinky, ktoré ukazujú aktuálny čas na danom mobile.
+
+@param style je MaterialTheme pre text času
  */
 @Composable
 fun Clock(
@@ -125,7 +134,8 @@ fun Clock(
         Modifier
             .fillMaxSize()
             .fillMaxHeight()
-            .fillMaxWidth().padding(top = 60.dp),
+            .fillMaxWidth()
+            .padding(top = 60.dp),
 
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
@@ -158,35 +168,24 @@ fun Clock(
 
 /**
 Táto funkcia vytvára navController, pomocou ktorého sa vieme prepínať medzi obrazovkami.
+
+@param timerViewModel je odkaz na viewModel ktorý táto aplikácia používa
+@param context je odkaz na context aktuálny kontext tejto aplikácie
  */
 @Composable
 fun MeditationApp(
-    timerViewModel: TimerViewModel,
+    timerViewModel: TimerViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    timerDurationEntryViewModel: TimerDurationEntryViewModel = viewModel(factory = AppViewModelProvider.Factory),
     context: Context,
 ) {
-    val navController = rememberNavController()
-
-    NavHost(
+    val navController: NavHostController = rememberNavController()
+    
+    NavGraph(
         navController = navController,
-        startDestination = "Main",
-        modifier = Modifier.fillMaxSize()
-    ) {
-        composable(route = AppScreens.Main.name) {
-            MainMenu(navController = navController)
-        }
-
-        composable(route = AppScreens.Timer.name) {
-            TimerMenu(timerViewModel = timerViewModel, context = context)
-        }
-
-        composable(route = AppScreens.Ringtone.name) {
-            RingtoneMenu(timerViewModel = timerViewModel, navController = navController, context = context)
-        }
-
-        composable(route = AppScreens.TimerDuration.name) {
-            TimerDurationMenu(timerViewModel = timerViewModel, navController = navController)
-        }
-    }
+        timerViewModel = timerViewModel,
+        timerDurationEntryViewModel = timerDurationEntryViewModel,
+        context = context
+    )
 }
 
 @Preview(showBackground = true)
@@ -194,6 +193,6 @@ fun MeditationApp(
 fun GreetingPreview() {
     Meditation_App_V2Theme {
         val context = LocalContext.current
-        MeditationApp(TimerViewModel(), context)
+        //MeditationApp(TimerViewModel(), context)
     }
 }

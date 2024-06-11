@@ -13,5 +13,6 @@ enum class AppScreens(@StringRes val title: Int) {
     Main(title = R.string.main),
     Timer(title = R.string.timer),
     Ringtone(title = R.string.ringtone),
-    TimerDuration(title = R.string.timerDuration)
+    TimerDuration(title = R.string.timerDuration),
+    TimerDurationAdd(title = R.string.timerDurationAdd)
 }

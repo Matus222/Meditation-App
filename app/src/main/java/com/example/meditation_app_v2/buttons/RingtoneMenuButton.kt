@@ -1,4 +1,4 @@
-package com.example.meditation_app_v2
+package com.example.meditation_app_v2.buttons
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,22 +11,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 /**
-Tento súbor reprezentuje tlačidlo pre menu kde si užívateľ vie vybrať dĺžku časovaču.
+Tento súbor reprezentuje tlačidlo pre menu kde si užívateľ vyberá zvonenie.
 
 @author Matúš Kendera
  */
 
 /**
-Táto funkcia vytvára tlačidlo pre menu kde si užívateľ vie vybrať dĺžku časovaču.
+Táto funkcia vytvára tlačidlo pre menu kde si užívateľ vyberá zvonenie.
 
 @param onClick je odkaz na funckiu, ktorá hovorí čo sa má stať po kliknutí tohto tlačidla.
 @color je farba tlačidla.
 @param text je názov zvonenia
  */
 @Composable
-fun TimerDurationButton(
+fun RingtoneMenuButton(
     onClick: () -> Unit,
     color: Color = Color(149, 111, 237),
     text: String
@@ -42,17 +43,17 @@ fun TimerDurationButton(
             containerColor = color,
             contentColor = Color.Black
         ),
-        modifier = Modifier.fillMaxWidth(1f).padding(10.dp)
+        modifier = Modifier.fillMaxWidth(0.7f).padding(10.dp)
     ) {
-        Text(text = text)
+        Text(text = text, fontSize = 15.sp)
     }
 }
 
 @Composable
 @Preview(showBackground = true)
-private fun TimerMenuButtonPreview() {
-    TimerDurationButton(
-        onClick = { },
-        text = "Something"
+private fun RingtoneButtonPreview() {
+    RingtoneMenuButton(
+        onClick = { /*TODO*/ },
+        text = "Something here"
     )
 }

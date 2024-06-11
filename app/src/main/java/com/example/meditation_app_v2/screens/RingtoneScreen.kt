@@ -1,16 +1,13 @@
-package com.example.meditation_app_v2.menus
+package com.example.meditation_app_v2.screens
 
 import android.content.Context
 import android.media.MediaPlayer
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -22,6 +19,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -31,8 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.meditation_app_v2.R
-import com.example.meditation_app_v2.RingtoneMenuButton
-import com.example.meditation_app_v2.app_ui.TimerViewModel
+import com.example.meditation_app_v2.buttons.RingtoneMenuButton
+import com.example.meditation_app_v2.view_models.TimerViewModel
 
 /**
 Tento súbor reprezentuje menu v ktorom si užívateľ vie vybrať zvonenie.
@@ -45,7 +46,7 @@ Tento súbor reprezentuje menu v ktorom si užívateľ vie vybrať zvonenie.
 Táto funkcia vytvorí komponenty tohto menu.
  */
 @Composable
-fun RingtoneMenu(timerViewModel: TimerViewModel, navController: NavController, context: Context) {
+fun RingtoneScreen(timerViewModel: TimerViewModel, navController: NavController, context: Context) {
     RingtoneContent(
         timerViewModel = timerViewModel,
         navController = navController,
@@ -67,7 +68,7 @@ private fun RingtoneContent(
     navController: NavController,
     context: Context,
 ) {
-    var previewRingtone = MediaPlayer()
+    var previewRingtone by remember { mutableStateOf(MediaPlayer()) }
 
     /**
     Táto funkcia spustí zvonenie keď užívateľ klikne na PreviewButton
@@ -180,5 +181,5 @@ private fun PreviewButton(
 private fun RingtoneMenuPreview() {
     val context = LocalContext.current
     val navControler = rememberNavController()
-    RingtoneMenu(TimerViewModel(), navControler, context)
+    //RingtoneScreen(TimerViewModel(), navControler, context)
 }
