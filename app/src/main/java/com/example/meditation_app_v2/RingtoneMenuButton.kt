@@ -1,6 +1,5 @@
 package com.example.meditation_app_v2
 
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,6 +13,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/**
+Tento súbor reprezentuje tlačidlo pre menu kde si užívateľ vyberá zvonenie.
+
+@author Matúš Kendera
+ */
+
+/**
+Táto funkcia vytvára tlačidlo pre menu kde si užívateľ vyberá zvonenie.
+
+@param onClick je odkaz na funckiu, ktorá hovorí čo sa má stať po kliknutí tohto tlačidla.
+@color je farba tlačidla.
+@param text je názov zvonenia
+ */
 @Composable
 fun RingtoneMenuButton(
     onClick: () -> Unit,

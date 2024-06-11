@@ -62,6 +62,18 @@ import com.example.meditation_app_v2.ui.theme.Meditation_App_V2Theme
 import kotlinx.coroutines.launch
 import java.util.Objects.toString
 
+/**
+Tento súbor reprezentuje menu v ktorom užívateľ spustí časovač s vybranou dĺžkou.
+
+@author Matúš Kendera
+ */
+
+/**
+Táto funkcia vytvorí komponenty tohto menu a počúva, či sa zmenil UI state aplikácie.
+
+@param timerViewModel je odkaz na viewModel ktorý táto aplikácia používa
+@param context je odkaz na context aktuálny kontext tejto aplikácie
+ */
 @Composable
 fun TimerMenu(timerViewModel: TimerViewModel, context: Context) {
     val timerUiState by timerViewModel.uiState.collectAsState()
@@ -76,6 +88,9 @@ fun TimerMenu(timerViewModel: TimerViewModel, context: Context) {
         onStopClick = {timerViewModel.stopTimer()}
     )
 
+    /**
+    Tu vypočítavame uhol (sweepAngle) pre animáciu kruhu časovača.
+     */
     val timerPercentage = timerMilliseconds / 1000f / fullTime
     val invertedPercentage = 1.0f - timerPercentage
     val additionalAngle = 360f / fullTime
@@ -90,6 +105,15 @@ fun TimerMenu(timerViewModel: TimerViewModel, context: Context) {
     TimerAnimation(sweepAngle = sweepAngle)
 }
 
+/**
+Táto funkcia reprezentuje komponenty pre toto menu
+
+@param timerViewModel je odkaz na viewModel ktorý táto aplikácia používa.
+@param timerMilliseconds je odkaz na počet milisekúnd ktoré ubehli od začatia časovača.
+@param onStartClick je odkaz na funckiu, ktorá hovorí čo sa má stať po kliknutí tlačidla start
+@param onPauseClick je odkaz na funckiu, ktorá hovorí čo sa má stať po kliknutí tlačidla pause
+@param onStopClick je odkaz na funckiu, ktorá hovorí čo sa má stať po kliknutí tlačidla stop
+ */
 @Composable
 fun TimerContent(
     timerViewModel: TimerViewModel,
@@ -144,6 +168,11 @@ fun TimerContent(
     }
 }
 
+/**
+Táto funkcia vytvorí vizuálny kruh, ktorý reprezentuje čas ktorý uplinul od začatia časovaču.
+
+@param sweepAngle je terajší uhol kruhu časovača.
+ */
 @Composable
 fun TimerAnimation(
     sweepAngle: Float
@@ -188,6 +217,12 @@ fun TimerAnimation(
     }
 }
 
+/**
+Táto funkcia reprezentuje jedno z 3 tlačidiel časovaču (start, pause a stop).
+
+@param onClick je odkaz na funckiu, ktorá hovorí čo sa má stať po kliknutí tohto tlačidla.
+@param imageVector je odkaz na vektorový obrázok pre toto tlačidlo.
+ */
 @Composable
 fun TimerButton(
     onClick: () -> Unit,

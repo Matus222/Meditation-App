@@ -17,20 +17,38 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.meditation_app_v2.R
 import com.example.meditation_app_v2.RingtoneMenuButton
-import com.example.meditation_app_v2.TimerMenuButton
+import com.example.meditation_app_v2.TimerDurationButton
 import com.example.meditation_app_v2.app_ui.TimerViewModel
 
+/**
+Tento súbor reprezentuje menu v ktorom si užívateľ vie vybrať dĺžku časovaču.
+
+@author Matúš Kendera
+ */
+
+
+/**
+Táto funkcia vytvorí komponenty tohto menu.
+
+@param timerViewModel je odkaz na viewModel ktorý táto aplikácia používa
+@param navController je odkaz na navController ktorý táto aplikácia používa
+ */
 @Composable
 fun TimerDurationMenu(timerViewModel: TimerViewModel, navController: NavController) {
     TimerDurationContent(timerViewModel = timerViewModel, navController = navController)
 }
 
+/**
+Táto funkcia reprezentuje komponenty pre toto menu
+
+@param timerViewModel je odkaz na viewModel ktorý táto aplikácia používa
+@param navController je odkaz na navController ktorý táto aplikácia používa
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TimerDurationContent(
     timerViewModel: TimerViewModel,
     navController: NavController,
-    modifier: Modifier = Modifier
 ) {
     val timerSeconds1: Long = 10
     val timerSeconds2: Long = 150
@@ -52,7 +70,7 @@ private fun TimerDurationContent(
         Column(
             modifier = Modifier.padding(innerPadding)
         ) {
-            TimerMenuButton(
+            TimerDurationButton(
                 onClick = {
                     timerViewModel.changeTimerDuration(timerSeconds1)
                     navController.popBackStack()
@@ -60,7 +78,7 @@ private fun TimerDurationContent(
                 text = timerViewModel.formatTime(1000 * timerSeconds1)
             )
 
-            TimerMenuButton(
+            TimerDurationButton(
                 onClick = {
                     timerViewModel.changeTimerDuration(timerSeconds2)
                     navController.popBackStack()
@@ -68,7 +86,7 @@ private fun TimerDurationContent(
                 text = timerViewModel.formatTime(1000 * timerSeconds2)
             )
 
-            TimerMenuButton(
+            TimerDurationButton(
                 onClick = {
                     timerViewModel.changeTimerDuration(timerSeconds3)
                     navController.popBackStack()

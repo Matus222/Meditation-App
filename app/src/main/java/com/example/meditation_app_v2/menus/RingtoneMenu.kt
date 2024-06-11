@@ -34,6 +34,16 @@ import com.example.meditation_app_v2.R
 import com.example.meditation_app_v2.RingtoneMenuButton
 import com.example.meditation_app_v2.app_ui.TimerViewModel
 
+/**
+Tento súbor reprezentuje menu v ktorom si užívateľ vie vybrať zvonenie.
+
+@author Matúš Kendera
+ */
+
+
+/**
+Táto funkcia vytvorí komponenty tohto menu.
+ */
 @Composable
 fun RingtoneMenu(timerViewModel: TimerViewModel, navController: NavController, context: Context) {
     RingtoneContent(
@@ -43,27 +53,43 @@ fun RingtoneMenu(timerViewModel: TimerViewModel, navController: NavController, c
     )
 }
 
+/**
+Táto funkcia reprezentuje komponenty pre toto menu
+
+@param timerViewModel je odkaz na viewModel ktorý táto aplikácia používa
+@param navController je odkaz na navController ktorý táto aplikácia používa
+@param context je odkaz na context aktuálny kontext tejto aplikácie
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun RingtoneContent(
     timerViewModel: TimerViewModel,
     navController: NavController,
     context: Context,
-    modifier: Modifier = Modifier
 ) {
     var previewRingtone = MediaPlayer()
 
+    /**
+    Táto funkcia spustí zvonenie keď užívateľ klikne na PreviewButton
+    @param ringtone je zvonenie ktoré chce užívateľ spustiť
+    */
     fun playPreviewRingtone(ringtone: Int) {
         previewRingtone.stop()
         previewRingtone = MediaPlayer.create(context, ringtone)
         previewRingtone.start()
     }
 
+    /**
+    Táto funkcia vypne zvonenie keď si užívateľ klikne na RingtoneMenuButton
+    */
     fun cleanUp() {
         previewRingtone.stop()
         navController.popBackStack()
     }
 
+    /**
+    Vytvárame Scaffold layout kde sú umiestnené všetky tlačidlá tohto menu
+    */
     Scaffold(
         topBar = {
             TopAppBar(
@@ -116,6 +142,12 @@ private fun RingtoneContent(
     }
 }
 
+/**
+Táto funkcia reprezentuje tlačidlo pomocou ktorého si užívateľ vie vypočuť zvonenie
+
+@param onClick je odkaz na funkciu ktorá hovorí čo sa má stať po spustení tlačidla
+@param color je farba tohto tlačidla
+ */
 @Composable
 private fun PreviewButton(
     onClick: () -> Unit,

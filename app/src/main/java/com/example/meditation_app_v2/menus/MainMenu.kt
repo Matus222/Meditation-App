@@ -47,8 +47,9 @@ import com.example.meditation_app_v2.app_ui.TimerViewModel
 import com.example.meditation_app_v2.app_ui.AppScreens
 import com.example.meditation_app_v2.ui.theme.Meditation_App_V2Theme
 
-/*
-Táto trieda reprezentuje hlavné menu tejto aplikácia.
+/**
+Tento súbor reprezentuje hlavné menu tejto aplikácia.
+
 @author Matúš Kendera
  */
 
@@ -64,6 +65,9 @@ fun MainMenu(
 
     Clock()
 
+    /**
+    Vytvárame Box layout v ktorom načítavame obrázok na pozadie tohto menu.
+    */
     Box(modifier) {
         Image(
             painter = image,
@@ -73,6 +77,10 @@ fun MainMenu(
         )
     }
 
+    /**
+    Vytvárame Row layout v ktorom v ktorom sú 3 tlačítka na prepínanie medzi
+    jednotlivými obrazovkami/menu.
+    */
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -85,7 +93,7 @@ fun MainMenu(
             onClick = { navController.navigate(AppScreens.Timer.name) },
             buttonWidth = buttonWidth,
             buttonHeight = buttonHeight,
-            imageVector = Icons.Filled.AddCircle
+            imageVector = Icons.Filled.AddCircle,
         )
         Spacer(modifier = Modifier.width(20.dp))
 
@@ -93,7 +101,7 @@ fun MainMenu(
             onClick = { navController.navigate(AppScreens.Ringtone.name) },
             buttonWidth = buttonWidth,
             buttonHeight = buttonHeight,
-            imageVector = Icons.Filled.Notifications
+            imageVector = Icons.Filled.Notifications,
         )
         Spacer(modifier = Modifier.width(20.dp))
 
@@ -101,11 +109,14 @@ fun MainMenu(
             onClick = { navController.navigate(AppScreens.TimerDuration.name) },
             buttonWidth = buttonWidth,
             buttonHeight = buttonHeight,
-            imageVector = Icons.Filled.Settings
+            imageVector = Icons.Filled.Settings,
         )
     }
 }
 
+/**
+Táto funkcia vytvára hodinky, ktoré ukazujú aktuálny čas na danom mobile.
+ */
 @Composable
 fun Clock(
     style: TextStyle = MaterialTheme.typography.labelLarge
@@ -145,6 +156,9 @@ fun Clock(
     }
 }
 
+/**
+Táto funkcia vytvára navController, pomocou ktorého sa vieme prepínať medzi obrazovkami.
+ */
 @Composable
 fun MeditationApp(
     timerViewModel: TimerViewModel,

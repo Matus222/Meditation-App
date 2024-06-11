@@ -32,6 +32,16 @@ import com.example.meditation_app_v2.app_ui.TimerViewModel
 import com.example.meditation_app_v2.menus.MeditationApp
 import com.example.meditation_app_v2.ui.theme.Meditation_App_V2Theme
 
+/**
+Hlavný súbor kde sa aplikácia spustí.
+
+@author Matúš Kendera
+ */
+
+/**
+Táto funkcia spustí aplikáciu.
+ */
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,20 +59,5 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
-@Composable
-fun EditNumberField(
-    value: String,
-    onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    TextField(
-        value = value,
-        onValueChange = onValueChange,
-        singleLine = true,
-        label = { Text(text = "Bill amount") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        modifier = modifier
-    )
 }
 

@@ -21,6 +21,11 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.timer
 
+/**
+Táto trieda reprezentuje viewModel tejto aplikácie.
+
+@author Matúš Kendera
+ */
 class TimerViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(TimerUiState())
     val uiState: StateFlow<TimerUiState> = _uiState.asStateFlow()
@@ -32,6 +37,12 @@ class TimerViewModel : ViewModel() {
     private var currentRingtone: Int = R.raw.ringtone3
     private lateinit var loadedRingtone: MediaPlayer
 
+    /**
+    Táto funkcia spustí časovač.
+    Tento kód je inšpirovaný zo stránky: https://medium.com/@TippuFisalSheriff/creating-a-timer-screen-with-kotlin-and-jetpack-compose-in-android-f7c56952d599
+
+     @param context je odkaz na kotnext tejto aplikácie.
+     */
     fun startTimer(context: Context) {
         timerJob?.cancel()
         timerJob = viewModelScope.launch {
@@ -50,6 +61,9 @@ class TimerViewModel : ViewModel() {
         }
     }
 
+    /**
+    Táto funkcia pauzne časovač.
+     */
     fun pauseTimer() {
         timerJob?.cancel()
 
@@ -58,6 +72,9 @@ class TimerViewModel : ViewModel() {
         }
     }
 
+    /**
+    Táto funkcia stopne a zresetuje časovač.
+     */
     fun stopTimer() {
         timerJob?.cancel()
 
@@ -69,10 +86,20 @@ class TimerViewModel : ViewModel() {
         }
     }
 
+    /**
+    Táto funkcia zmení terajšie zvonenie na nové.
+
+     @param newRingtone je odkaz na nové zvonenie.
+     */
     fun changeRingtone(newRingtone: Int) {
         currentRingtone = newRingtone
     }
 
+    /**
+    Táto funkcia zmení dĺžku časovača.
+
+    @param seconds je nová dĺžka časovača v sekundách.
+     */
     fun changeTimerDuration(seconds: Long) {
         _uiState.value = TimerUiState(timerMilliseconds = 1000 * seconds, timerSeconds = seconds)
 
@@ -80,14 +107,27 @@ class TimerViewModel : ViewModel() {
         currentSeconds = savedSeconds
     }
 
-    fun formatTime(timerValue: Long): String {
-        val hours = TimeUnit.MILLISECONDS.toHours(timerValue)
-        val minutes = TimeUnit.MILLISECONDS.toMinutes(timerValue) % 60
-        val seconds = TimeUnit.MILLISECONDS.toSeconds(timerValue) % 60
+    /**
+    Táto funkcia formátuje hodnotu času v milisekundách na reálny čas.
+    Táto funkcia je zo stránky: https://medium.com/@TippuFisalSheriff/creating-a-timer-screen-with-kotlin-and-jetpack-compose-in-android-f7c56952d599
+
+    @param timerMilliseconds je dĺžka časovača v milisekundách.
+    @return naformátovaný čas
+     */
+    fun formatTime(timerMilliseconds: Long): String {
+        val hours = TimeUnit.MILLISECONDS.toHours(timerMilliseconds)
+        val minutes = TimeUnit.MILLISECONDS.toMinutes(timerMilliseconds) % 60
+        val seconds = TimeUnit.MILLISECONDS.toSeconds(timerMilliseconds) % 60
 
         return String.format("%02d:%02d:%02d", hours, minutes, seconds)
     }
 
+    /**
+    Táto funkcia spustí zvonenie, keď časovač skončí.
+
+    @param context je odkaz na kotnext tejto aplikácie.
+    @return spustitelné zvonenie
+     */
     private fun playSound(context: Context): MediaPlayer {
         return MediaPlayer.create(context, currentRingtone)
     }
