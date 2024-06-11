@@ -1,7 +1,6 @@
 package com.example.meditation_app_v2.menus
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.widget.TextClock
 import androidx.compose.foundation.Image
@@ -24,7 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFontFamilyResolver
@@ -53,6 +51,12 @@ Tento súbor reprezentuje hlavné menu tejto aplikácia.
 @author Matúš Kendera
  */
 
+/**
+Táto funkcia vytvorí komponenty tohto menu.
+
+@param navController je odkaz na navController ktorý táto aplikácia používa
+@param modifier je Modifier, ktorý táto funkcia používa
+ */
 @Composable
 fun MainMenu(
     navController: NavController,
@@ -116,6 +120,8 @@ fun MainMenu(
 
 /**
 Táto funkcia vytvára hodinky, ktoré ukazujú aktuálny čas na danom mobile.
+
+@param style je MaterialTheme pre text času
  */
 @Composable
 fun Clock(
@@ -158,6 +164,9 @@ fun Clock(
 
 /**
 Táto funkcia vytvára navController, pomocou ktorého sa vieme prepínať medzi obrazovkami.
+
+@param timerViewModel je odkaz na viewModel ktorý táto aplikácia používa
+@param context je odkaz na context aktuálny kontext tejto aplikácie
  */
 @Composable
 fun MeditationApp(
