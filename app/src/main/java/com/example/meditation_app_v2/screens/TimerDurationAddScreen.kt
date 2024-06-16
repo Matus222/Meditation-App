@@ -122,10 +122,6 @@ fun ItemInputForm(
     onValueChange: (TimerDurationItemDetails) -> Unit = {},
     modifier: Modifier
 ) {
-    var textHours by remember {mutableStateOf("")}
-    var textMinutes by remember {mutableStateOf("")}
-    var textSeconds by remember {mutableStateOf("")}
-
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
