@@ -9,7 +9,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.meditation_app_v2.screens.MeditationApp
 import com.example.meditation_app_v2.ui.theme.Meditation_App_V2Theme
-import java.util.concurrent.TimeUnit
 
 /**
 Hlavný súbor kde sa aplikácia spustí.

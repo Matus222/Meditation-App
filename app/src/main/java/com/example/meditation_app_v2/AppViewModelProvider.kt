@@ -23,6 +23,3 @@ object AppViewModelProvider {
         }
     }
 }
-
-fun CreationExtras.timerApplication(): TimerApplication =
-    (this[AndroidViewModelFactory.APPLICATION_KEY] as TimerApplication)

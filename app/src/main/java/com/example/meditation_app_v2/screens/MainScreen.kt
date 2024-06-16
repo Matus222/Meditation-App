@@ -196,6 +196,6 @@ fun MeditationApp(
 fun GreetingPreview() {
     Meditation_App_V2Theme {
         val context = LocalContext.current
-        //MeditationApp(TimerViewModel(), context)
+        MeditationApp(TimerViewModel(), context = context)
     }
 }

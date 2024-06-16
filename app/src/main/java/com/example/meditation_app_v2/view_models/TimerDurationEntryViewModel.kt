@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
-import com.example.meditation_app_v2.data.TimerDurationItem
 
 /**
 Tento súbor reprezentuje viewModel pre obrazovku vytvárania časovača.
@@ -30,7 +29,7 @@ class TimerDurationEntryViewModel() : ViewModel() {
         itemUiState = TimerDurationItemUiState(itemDetails = itemDetails, isEntryValid = validateInput(itemDetails))
     }
 
-    suspend fun saveItem() {
+    fun saveItem() {
         if (validateInput()) {
             //timerDurationItemRepository.insertItem(itemUiState.itemDetails.toItem())
 

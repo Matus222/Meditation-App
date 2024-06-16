@@ -2,7 +2,6 @@ package com.example.meditation_app_v2.view_models
 
 import android.content.Context
 import android.media.MediaPlayer
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -13,14 +12,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.meditation_app_v2.R
 import com.example.meditation_app_v2.app_ui.TimerUiState
-import com.example.meditation_app_v2.data.TimerDurationItemRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 
 /**
 Táto trieda reprezentuje viewModel pre časovač tejto aplikácie.

@@ -132,5 +132,5 @@ fun ItemView(
 @Preview(showBackground = true)
 fun TimerDurationPreview() {
     val navController = rememberNavController()
-    //TimerDurationScreen(TimerViewModel(), TimerDurationEntryViewModel(), navController)
+    TimerDurationScreen(TimerViewModel(), TimerDurationEntryViewModel(), navController)
 }

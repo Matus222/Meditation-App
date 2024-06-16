@@ -63,7 +63,6 @@ fun TimerMenu(timerViewModel: TimerViewModel, context: Context) {
     val fullTime = timerUiState.timerSeconds
 
     TimerContent(
-        timerViewModel = timerViewModel,
         timerMilliseconds = timerMilliseconds,
         onStartClick = {timerViewModel.startTimer(context = context)},
         onPauseClick = {timerViewModel.pauseTimer()},
@@ -98,7 +97,6 @@ Táto funkcia reprezentuje komponenty pre toto menu
  */
 @Composable
 fun TimerContent(
-    timerViewModel: TimerViewModel,
     timerMilliseconds: Long,
     onStartClick: () -> Unit,
     onPauseClick: () -> Unit,
@@ -236,7 +234,6 @@ fun TimerButton(
 fun TimerMenuPreview() {
     Meditation_App_V2Theme {
         val context = LocalContext.current
-        //TimerMenu(timerViewModel = TimerViewModel(), context = context)
-        //TimerAnimation(0f)
+        TimerMenu(timerViewModel = TimerViewModel(), context = context)
     }
 }
