@@ -40,6 +40,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.meditation_app_v2.data.formatTime
 import com.example.meditation_app_v2.view_models.TimerViewModel
 import com.example.meditation_app_v2.ui.theme.Meditation_App_V2Theme
 
@@ -111,7 +112,7 @@ fun TimerContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = timerViewModel.formatTime(timerMilliseconds),
+            text = formatTime(timerMilliseconds),
             fontSize = 55.sp,
             fontFamily = FontFamily.SansSerif,
         )

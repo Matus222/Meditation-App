@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFontFamilyResolver
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -46,6 +47,7 @@ import com.example.meditation_app_v2.view_models.TimerViewModel
 import com.example.meditation_app_v2.app_ui.AppScreens
 import com.example.meditation_app_v2.navigation.NavGraph
 import com.example.meditation_app_v2.ui.theme.Meditation_App_V2Theme
+import com.example.meditation_app_v2.view_models.ObserveLifecycleEvents
 import com.example.meditation_app_v2.view_models.TimerDurationEntryViewModel
 
 /**
@@ -178,6 +180,7 @@ fun MeditationApp(
     timerDurationEntryViewModel: TimerDurationEntryViewModel = viewModel(factory = AppViewModelProvider.Factory),
     context: Context,
 ) {
+    timerViewModel.ObserveLifecycleEvents(lifecycle = LocalLifecycleOwner.current.lifecycle)
     val navController: NavHostController = rememberNavController()
     
     NavGraph(

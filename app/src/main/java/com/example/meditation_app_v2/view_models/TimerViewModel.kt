@@ -2,6 +2,13 @@ package com.example.meditation_app_v2.view_models
 
 import android.content.Context
 import android.media.MediaPlayer
+import android.util.Log
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.meditation_app_v2.R
@@ -16,11 +23,11 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 /**
-Táto trieda reprezentuje viewModel tejto aplikácie.
+Táto trieda reprezentuje viewModel pre časovač tejto aplikácie.
 
 @author Matúš Kendera
  */
-class TimerViewModel() : ViewModel() {
+class TimerViewModel() : ViewModel(), DefaultLifecycleObserver {
     private val _uiState = MutableStateFlow(TimerUiState())
     val uiState: StateFlow<TimerUiState> = _uiState.asStateFlow()
 
@@ -102,21 +109,6 @@ class TimerViewModel() : ViewModel() {
     }
 
     /**
-    Táto funkcia formátuje hodnotu času v milisekundách na reálny čas.
-    Táto funkcia je zo stránky: https://medium.com/@TippuFisalSheriff/creating-a-timer-screen-with-kotlin-and-jetpack-compose-in-android-f7c56952d599
-
-    @param timerMilliseconds je dĺžka časovača v milisekundách.
-    @return naformátovaný čas
-     */
-    fun formatTime(timerMilliseconds: Long): String {
-        val hours = TimeUnit.MILLISECONDS.toHours(timerMilliseconds)
-        val minutes = TimeUnit.MILLISECONDS.toMinutes(timerMilliseconds) % 60
-        val seconds = TimeUnit.MILLISECONDS.toSeconds(timerMilliseconds) % 60
-
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds)
-    }
-
-    /**
     Táto funkcia spustí zvonenie, keď časovač skončí.
 
     @param context je odkaz na kotnext tejto aplikácie.
@@ -124,5 +116,37 @@ class TimerViewModel() : ViewModel() {
      */
     private fun playSound(context: Context): MediaPlayer {
         return MediaPlayer.create(context, currentRingtone)
+    }
+
+
+    /**
+     * Lifecycle funkcie na pauznutie a stopnutie časovača.
+     */
+    override fun onPause(owner: LifecycleOwner) {
+        super.onPause(owner)
+        pauseTimer()
+    }
+
+    override fun onStop(owner: LifecycleOwner) {
+        super.onStop(owner)
+        pauseTimer()
+    }
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        super.onDestroy(owner)
+        stopTimer()
+    }
+}
+
+/**
+ * Extension funkcia, ktorá spustí lifecycle observer a aplikácia začne počúvať eventy.
+ */
+@Composable
+fun <viewModel : LifecycleObserver> viewModel.ObserveLifecycleEvents(lifecycle: Lifecycle) {
+    DisposableEffect(lifecycle) {
+        lifecycle.addObserver(this@ObserveLifecycleEvents)
+        onDispose {
+            lifecycle.removeObserver(this@ObserveLifecycleEvents)
+        }
     }
 }

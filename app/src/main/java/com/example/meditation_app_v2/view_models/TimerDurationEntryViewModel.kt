@@ -1,16 +1,17 @@
 package com.example.meditation_app_v2.view_models
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.example.meditation_app_v2.data.TimerDurationItem
-import com.example.meditation_app_v2.data.TimerDurationItemRepository
 
+/**
+Tento súbor reprezentuje viewModel pre obrazovku vytvárania časovača.
 
-//private val timerDurationItemRepository: TimerDurationItemRepository
+@author Matúš Kendera
+ */
 
 class TimerDurationEntryViewModel() : ViewModel() {
     var itemUiState by mutableStateOf(TimerDurationItemUiState())
@@ -62,23 +63,3 @@ data class TimerDurationItemDetails(
     val minutes: String = "",
     val seconds: String = ""
 )
-
-fun TimerDurationItemDetails.toItem(): TimerDurationItem = TimerDurationItem(
-    id = id,
-    hours = hours.toIntOrNull() ?: 0,
-    minutes = minutes.toIntOrNull() ?: 0,
-    seconds = seconds.toIntOrNull() ?: 0
-)
-
-fun TimerDurationItem.toItemUiState(isEntryValid: Boolean = false): TimerDurationItemUiState = TimerDurationItemUiState(
-    itemDetails = this.toItemDetails(),
-    isEntryValid = isEntryValid
-)
-
-fun TimerDurationItem.toItemDetails(): TimerDurationItemDetails = TimerDurationItemDetails(
-    id = id,
-    hours = hours.toString(),
-    minutes = minutes.toString(),
-    seconds = seconds.toString()
-)
-

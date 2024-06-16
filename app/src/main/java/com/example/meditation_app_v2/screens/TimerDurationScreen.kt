@@ -1,6 +1,5 @@
 package com.example.meditation_app_v2.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,11 +21,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.meditation_app_v2.app_ui.AppScreens
 import androidx.compose.foundation.lazy.items
-import com.example.meditation_app_v2.view_models.TimerViewModel
 import com.example.meditation_app_v2.buttons.AddButton
+import com.example.meditation_app_v2.data.formatTime
 import com.example.meditation_app_v2.buttons.TimerDurationButton
 import com.example.meditation_app_v2.view_models.TimerDurationEntryViewModel
 import com.example.meditation_app_v2.view_models.TimerDurationItemDetails
+import com.example.meditation_app_v2.view_models.TimerViewModel
 
 /**
 Tento súbor reprezentuje menu v ktorom si užívateľ vie vybrať dĺžku časovaču.
@@ -67,10 +67,6 @@ private fun TimerDurationContent(
     timerDurationEntryViewModel: TimerDurationEntryViewModel,
     navController: NavController
 ) {
-    val timerSeconds1: Long = 10
-    val timerSeconds2: Long = 150
-    val timerSeconds3: Long = 300
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -95,33 +91,6 @@ private fun TimerDurationContent(
                 )
             }
         }
-//        Column(
-//            modifier = Modifier.padding(innerPadding)
-//        ) {
-//            TimerDurationButton(
-//                onClick = {
-//                    timerViewModel.changeTimerDuration(timerSeconds1)
-//                    navController.popBackStack()
-//                          },
-//                text = timerViewModel.formatTime(1000 * timerSeconds1)
-//            )
-//
-//            TimerDurationButton(
-//                onClick = {
-//                    timerViewModel.changeTimerDuration(timerSeconds2)
-//                    navController.popBackStack()
-//                          },
-//                text = timerViewModel.formatTime(1000 * timerSeconds2)
-//            )
-//
-//            TimerDurationButton(
-//                onClick = {
-//                    timerViewModel.changeTimerDuration(timerSeconds3)
-//                    navController.popBackStack()
-//                          },
-//                text = timerViewModel.formatTime(1000 * timerSeconds3)
-//            )
-//        }
     }
 
     Column(
@@ -155,7 +124,7 @@ fun ItemView(
             timerViewModel.changeTimerDuration(timerDurationInSeconds)
             navController.popBackStack()
                   },
-        text = timerViewModel.formatTime(1000 * timerDurationInSeconds)
+        text = formatTime(1000 * timerDurationInSeconds)
     )
 }
 
@@ -163,5 +132,5 @@ fun ItemView(
 @Preview(showBackground = true)
 fun TimerDurationPreview() {
     val navController = rememberNavController()
-    TimerDurationScreen(TimerViewModel(), TimerDurationEntryViewModel(), navController)
+    //TimerDurationScreen(TimerViewModel(), TimerDurationEntryViewModel(), navController)
 }
